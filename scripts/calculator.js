@@ -4,6 +4,7 @@ let currentNumber = new String();
 let altNumber = new String();
 let mode = "deg";
 let currentAction = undefined;
+let allowsNumberInput = true;
 
 /* initialize buttons */
 //initialize all of the numbers
@@ -57,10 +58,17 @@ deg.onclick = toggleDeg;
 rad.onclick = toggleRad;
 
 function processNumber(number) {
-    outputString += number;
-    currentNumber += number.toString();
-    console.log(currentNumber);
-    updateDisplay();
+    if (outputString.length > 35) {
+        clearAll();
+        outputString = 'ERROR!';
+        updateDisplay();
+    }
+
+    if (allowsNumberInput) {
+        outputString += number;
+        currentNumber += number.toString();
+        updateDisplay();
+    }
 }
 
 function completeAction() {
@@ -84,6 +92,7 @@ function completeAction() {
 
         currentAction = undefined;
 
+        allowsNumberInput = false;
         outputString = answer;
         currentNumber = new String();
         currentNumber += answer;
@@ -93,6 +102,7 @@ function completeAction() {
 }
 
 function processAction(action) {
+    allowsNumberInput = true;
     if (currentAction == undefined) {
         currentAction = action;
 
@@ -138,5 +148,6 @@ function clearAll() {
     currentNumber = new String();
     altNumber = new String();
     currentAction = undefined;
+    allowsNumberInput = true;
     updateDisplay();
 }

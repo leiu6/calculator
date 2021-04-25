@@ -24,5 +24,7 @@ div.calculator div.display {
     grid-row: 1 / span 2;
     line-height: 73.8px;
     font-size: 30px;
+    padding-right: 10px;
     padding-left: 10px;
+    text-align: right;
 }
