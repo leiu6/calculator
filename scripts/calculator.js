@@ -6,6 +6,7 @@ let mode = "deg";
 let currentAction = undefined;
 let allowsNumberInput = true;
 let invToggle = false;
+let globalAnswer = new String();
 
 /* initialize buttons */
 //initialize all of the numbers
@@ -78,10 +79,20 @@ fact.onclick = calculateFactorial;
 scientific.onclick = scientificNumbers;
 percent.onclick = () => {processAction('percent');}
 inv.onclick = toggleInversion;
+ln.onclick = naturalLog;
+log.onclick = baseTenLog;
+sqrt.onclick = squareRoot;
+exponent.onclick = () => {processAction('exponent');}
 
 //process input from other buttons
 deg.onclick = toggleDeg;
 rad.onclick = toggleRad;
+
+//other
+sin.onclick = () => {trig('sin');}
+cos.onclick = () => {trig('cos');}
+tan.onclick = () => {trig('tan');}
+answer.onclick = answerKey;
 
 function processNumber(number) {
     if (outputString.length > 35) {
@@ -118,6 +129,14 @@ function completeAction() {
         else if (currentAction === 'percent') {
             answer = num2 * parseFloat(1 / 100);
         }
+        else if (currentAction == 'exponent') {
+            if (invToggle) {
+                answer = Math.pow(num2, 1 / num1);
+            }
+            else {
+                answer = Math.pow(num2, num1);
+            }
+        }
 
         currentAction = undefined;
 
@@ -153,6 +172,14 @@ function processAction(action) {
         else if (action == "percent") {
             outputString += "%";
         }
+        else if (action == "exponent") {
+                if (invToggle) {
+                    outputString += "<sup>1/y</sup>";
+                }
+                else {
+                    outputString += "^";
+                }
+        }
 
         updateDisplay();
 
@@ -176,6 +203,7 @@ function toggleRad() {
 }
 
 function clearAll() {
+    globalAnswer = currentNumber;
     outputString = '';
     currentNumber = new String();
     altNumber = new String();
@@ -217,6 +245,9 @@ function scientificNumbers() {
     if (currentNumber == '') {
         outputString += '';
     }
+    else if (outputString[outputString.length - 1] == 'e') {
+        outputString += '';
+    }
     else if (allowsNumberInput) {
         outputString += 'e';
         currentNumber += 'e';
@@ -254,5 +285,116 @@ function toggleInversion() {
         log.textContent = "log";
         sqrt.innerHTML = "&Sqrt;";
         exponent.innerHTML = "x<sup>y</sup>";
+    }
+}
+
+function trig(action) {
+
+    let doConversion = false;
+
+    if (action == 'sin') {
+        if (invToggle) {
+            currentNumber = Math.asin(currentNumber);
+            doConversion = true;
+        }
+        else {
+            if (mode == 'deg') {currentNumber = degToRad(currentNumber);}
+            currentNumber = Math.sin(currentNumber);
+        }
+    }
+    else if (action == 'cos') {
+        if (invToggle) {
+            currentNumber = Math.acos(currentNumber);
+            doConversion = true;
+        }
+        else {
+            if (mode == 'deg') {currentNumber = degToRad(currentNumber);}
+            currentNumber = Math.cos(currentNumber);
+        }
+    }
+    else if (action == 'tan') {
+        if (invToggle) {
+            currentNumber = Math.atan(currentNumber);
+            doConversion = true;
+        }
+        else {
+            if (mode == 'deg') {currentNumber = degToRad(currentNumber);}
+            currentNumber = Math.tan(currentNumber);
+        }
+    }
+
+    if (doConversion == true && mode == 'deg') {
+        currentNumber = radToDeg(currentNumber);
+        console.log(currentNumber);
+    }
+
+    outputString = currentNumber;
+    updateDisplay();
+}
+
+function degToRad(deg) {
+    return deg * Math.PI / 180;
+}
+function radToDeg(rad) {
+    return rad  * 180 / Math.PI;
+}
+
+function answerKey() {
+    if (allowsNumberInput) {
+        if (invToggle) {
+            currentNumber = Math.random();
+            outputString += currentNumber;
+            updateDisplay();
+        }
+        else {
+            currentNumber = globalAnswer;
+            outputString += currentNumber;
+            updateDisplay();
+        }
+    }
+}
+
+function naturalLog() {
+    if (allowsNumberInput) {
+        if (invToggle) {
+            currentNumber = Math.exp(currentNumber);
+            outputString = currentNumber;
+            updateDisplay();
+        }
+        else {
+            currentNumber = Math.log(currentNumber);
+            outputString = currentNumber;
+            updateDisplay();
+        }
+    }
+}
+
+function baseTenLog() {
+    if (allowsNumberInput) {
+        if (invToggle) {
+            currentNumber = Math.pow(10, currentNumber);
+            outputString = currentNumber;
+            updateDisplay();
+        }
+        else {
+            currentNumber = Math.log10(currentNumber);
+            outputString = currentNumber;
+            updateDisplay();
+        }
+    }
+}
+
+function squareRoot() {
+    if (allowsNumberInput) {
+        if (invToggle) {
+            currentNumber = currentNumber * currentNumber;
+            outputString = currentNumber;
+            updateDisplay();
+        }
+        else {
+            currentNumber = Math.sqrt(currentNumber);
+            outputString = currentNumber;
+            updateDisplay();
+        }
     }
 }
