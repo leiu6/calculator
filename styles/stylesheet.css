@@ -11,13 +11,18 @@ div.calculator {
     grid-template-rows: repeat(7, 36.9px);
     gap: 7px;
 }
+div.calculator button {
+    font-size: 16px;
+}
 div.calculator .unit {
     background-color: rgb(243, 241, 241);
     border: 1px solid rgb(204, 201, 201);
     border-radius: 4px;
 }
 div.calculator .unit.enabled {
-    background-color: rgb(184, 184, 184);
+    background-color: rgb(219, 64, 64);
+    color: white;
+    border: 1px solid rgb(175, 41, 41);
 }
 div.calculator div.display {
     grid-column: 1 / span 7;
@@ -36,4 +41,10 @@ div.calculator .filler {
 .invisible {
     background-color: transparent !important;
     border: 0 !important;
+}
+
+#equals {
+    background-color: rgb(219, 64, 64);
+    color: white;
+    border: 1px solid rgb(175, 41, 41);
 }
