@@ -28,3 +28,12 @@ div.calculator div.display {
     padding-left: 10px;
     text-align: right;
 }
+div.calculator .filler {
+    grid-column: 4 / 6;
+    text-align: center;
+    line-height: 36.9px;
+}
+.invisible {
+    background-color: transparent !important;
+    border: 0 !important;
+}
