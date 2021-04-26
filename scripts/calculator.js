@@ -64,6 +64,32 @@ number8.onclick = () => {processNumber(8);}
 number9.onclick = () => {processNumber(9);}
 dot.onclick = () => {processNumber('.');}
 
+document.addEventListener('keydown', function(event) {
+    if (event.keyCode >= 48 && event.keyCode <= 57) {
+        processNumber(event.keyCode - 48);
+    }
+    else if (event.keyCode == 16) {
+        if (event.keyCode == 187) {
+            processAction('add');
+        }
+        else if (event.keyCode == 56) {
+            processAction('multiply');
+        }
+    }
+    else if (event.keyCode == 187) {
+        completeAction;
+    }
+    else if (event.keyCode == 189) {
+        processAction('subtract');
+    }
+    else if (event.keyCode == 191) {
+        processAction('divide');
+    }
+    else if (event.keyCode == 67) {
+        clearAll;
+    }
+});
+
 //basic math operations processing
 divide.onclick = () => {processAction('divide');}
 multiply.onclick = () => {processAction('multiply');}
