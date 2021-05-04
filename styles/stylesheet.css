@@ -15,6 +15,9 @@ div.calculator button {
     font-size: 16px;
     cursor: pointer;
 }
+div.calculator button:active {
+    background-color :rgb(206, 206, 206);
+}
 div.calculator .unit {
     background-color: rgb(243, 241, 241);
     border: 1px solid rgb(204, 201, 201);
@@ -24,6 +27,9 @@ div.calculator .unit.enabled {
     background-color: rgb(219, 64, 64);
     color: white;
     border: 1px solid rgb(175, 41, 41);
+}
+div.calculator .unit.enabled:active {
+    background-color: rgb(175, 41, 41);
 }
 div.calculator div.display {
     grid-column: 1 / span 7;
@@ -48,4 +54,7 @@ div.calculator .filler {
     background-color: rgb(219, 64, 64);
     color: white;
     border: 1px solid rgb(175, 41, 41);
+}
+#equals:active {
+    background-color: rgb(175, 41, 41);
 }
